@@ -1,66 +1,58 @@
 package com.yorastd.projectmanagement.Models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
 @Entity
-public class Task {
+@Data
+public class Task implements Serializable {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Getter
-    @Setter
     private String name;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private String status;
 
-    @Getter
-    @Setter
     private int priority;
 
-    @Getter
-    @Setter
     @JsonIgnore
     @OneToMany
-    private ArrayList<Task> predecessors;
-
-    @Getter
-    @Setter
+    private List<Task> predecessors;
+    
     private Date timeRequired;
 
-    @Getter
-    @Setter
     private String createdAt;
 
-    @Getter
-    @Setter
     private Date startDateSoon;
 
-    @Getter
-    @Setter
     private Date startDateLate;
 
-    @Getter
-    @Setter
     private Date endDateSoon;
-
-    @Getter
-    @Setter
+    
     private Date endDateLate;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name=" + name +
+//                ", priority=" + priority +
+//                ", predecessors=" + predecessors +
+//                ", timeRequired=" + timeRequired +
+//                ", createdAt=" + createdAt +
+//                ", startDateSoon=" + startDateSoon +
+//                ", startDateLate=" + startDateLate +
+//                ", endDateSoon=" + endDateSoon +
+//                ", endDateLate=" + endDateLate +
+                '}';
+    }
+
 }

@@ -1,19 +1,25 @@
 package com.yorastd.projectmanagement.Models.TaskTreeModel;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
 public class TaskTree {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Getter
-    @Setter
     @OneToMany
-    private ArrayList<TaskNode> roots;
+    private List<TaskNode> roots;
+
+    @Override
+    public String toString() {
+        return "TaskTree{" +
+                "id=" + id +
+                ", roots=" + roots +
+                '}';
+    }
 }
