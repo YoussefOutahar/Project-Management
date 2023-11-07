@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Models.TaskTreeModel;
+package com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel;
 
 import jakarta.persistence.*;
 import lombok.Data;

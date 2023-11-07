@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Models;
+package com.yorastd.projectmanagement.Models.Tasks;
 
 import java.io.Serializable;
 import java.util.Date;

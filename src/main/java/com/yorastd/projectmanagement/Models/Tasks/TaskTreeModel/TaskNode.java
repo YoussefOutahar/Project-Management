@@ -1,7 +1,7 @@
-package com.yorastd.projectmanagement.Models.TaskTreeModel;
+package com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.yorastd.projectmanagement.Models.Task;
+import com.yorastd.projectmanagement.Models.Tasks.Task;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;

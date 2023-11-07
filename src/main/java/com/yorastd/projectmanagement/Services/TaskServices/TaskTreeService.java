@@ -1,10 +1,10 @@
-package com.yorastd.projectmanagement.Services;
+package com.yorastd.projectmanagement.Services.TaskServices;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yorastd.projectmanagement.Models.Task;
-import com.yorastd.projectmanagement.Models.TaskTreeModel.TaskNode;
-import com.yorastd.projectmanagement.Models.TaskTreeModel.TaskTree;
+import com.yorastd.projectmanagement.Models.Tasks.Task;
+import com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel.TaskNode;
+import com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel.TaskTree;
 import com.yorastd.projectmanagement.Repositories.TaskNodeRepo;
 import com.yorastd.projectmanagement.Repositories.TaskRepo;
 import com.yorastd.projectmanagement.Repositories.TaskTreeRepo;
@@ -68,21 +68,12 @@ public class TaskTreeService {
     }
 
     @Transactional
-    public TaskTree calculateTasksDatesSoon(TaskTree taskTree, Date startDate) {
+    public TaskTree calculateTreeDatesSoon(TaskTree taskTree, Date startDate) {
 
         startDate = new Date(System.currentTimeMillis() + DAY_IN_MILLISEC); //Todo change this later
 
-        System.out.println(taskTree);
         // getting the roots
         ArrayList<TaskNode> roots = new ArrayList<TaskNode>(taskTree.getRoots());
-        for (TaskNode root : roots) {
-            root.getTask().setStartDateSoon(startDate);
-            root.getTask().setEndDateSoon(
-                    new Date(
-                            startDate.getTime() + root.getTask().getTimeRequired().getTime()
-                    )
-            );
-        }
 
         // Calculate the dates of the children
         for (TaskNode root : roots) {
@@ -144,32 +135,13 @@ public class TaskTreeService {
     }
 
     @Transactional
-    public void saveTaskTree(TaskTree taskTree) {
-        // Iterate through root nodes of the tree and start the traversal
-        for (TaskNode rootNode : taskTree.getRoots()) {
-            saveTaskNodeAndChildren(rootNode);
-        }
-
-        // Save the TaskTree
-        taskTreeRepo.save(taskTree);
+    public TaskTree calculateTreeDatesLate() {
+        return null;
     }
 
     @Transactional
-    public void saveTaskNodeAndChildren(TaskNode taskNode) {
-        // First, save the Task associated with this TaskNode
-        Task task = taskNode.getTask();
-        if (task != null) {
-            taskRepo.save(task);
-        }
-
-        // Recursively save child nodes and their tasks
-        List<TaskNode> children = taskNode.getChildren();
-        for (TaskNode childNode : children) {
-            saveTaskNodeAndChildren(childNode);
-        }
-
-        // Finally, save the parent TaskNode
-        taskNodeRepo.save(taskNode);
+    public TaskNode calculateTaskNodeDatesLate(TaskNode taskNode, Date startDate) {
+        return null;
     }
     public String convertTaskTreeToJson(TaskTree taskTree) {
         ObjectMapper objectMapper = new ObjectMapper();

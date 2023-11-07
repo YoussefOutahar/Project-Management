@@ -1,13 +1,5 @@
 package com.yorastd.projectmanagement;
-import com.yorastd.projectmanagement.Models.Task;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestTreeCreatorTest {

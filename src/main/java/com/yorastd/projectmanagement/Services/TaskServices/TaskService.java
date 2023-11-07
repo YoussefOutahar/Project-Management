@@ -1,6 +1,6 @@
-package com.yorastd.projectmanagement.Services;
+package com.yorastd.projectmanagement.Services.TaskServices;
 
-import com.yorastd.projectmanagement.Models.Task;
+import com.yorastd.projectmanagement.Models.Tasks.Task;
 import com.yorastd.projectmanagement.Repositories.TaskRepo;
 
 import org.springframework.stereotype.Service;
