@@ -1,14 +1,15 @@
-package com.yorastd.projectmanagement.Services;
+package com.yorastd.projectmanagement.Services.Auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yorastd.projectmanagement.Models.AuthenticationRequest;
-import com.yorastd.projectmanagement.Models.AuthenticationResponse;
-import com.yorastd.projectmanagement.Models.RegisterRequest;
-import com.yorastd.projectmanagement.Models.Token;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationResponse;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.RegisterRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
 import com.yorastd.projectmanagement.Repositories.TokenRepository;
-import com.yorastd.projectmanagement.Models.TokenType;
-import com.yorastd.projectmanagement.Models.User;
+import com.yorastd.projectmanagement.Models.AuthModels.Token.TokenType;
+import com.yorastd.projectmanagement.Models.User.User;
 import com.yorastd.projectmanagement.Repositories.UserRepository;
+import com.yorastd.projectmanagement.Services.Auth.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

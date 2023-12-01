@@ -13,13 +13,17 @@ public class TaskNode {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "taskNode",cascade = CascadeType.ALL)
     private Task task;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JsonIgnore
+    private TaskTree taskTree;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<TaskNode> children;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private List<TaskNode> predecessors;
 

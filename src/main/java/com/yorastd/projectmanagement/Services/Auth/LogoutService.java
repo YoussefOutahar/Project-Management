@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Services;
+package com.yorastd.projectmanagement.Services.Auth;
 
 import com.yorastd.projectmanagement.Repositories.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;

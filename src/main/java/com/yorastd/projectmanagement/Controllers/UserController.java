@@ -1,6 +1,6 @@
 package com.yorastd.projectmanagement.Controllers;
 
-import com.yorastd.projectmanagement.Models.ChangePasswordRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.ChangePasswordRequest;
 import com.yorastd.projectmanagement.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

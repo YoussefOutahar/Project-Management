@@ -1,8 +1,8 @@
 package com.yorastd.projectmanagement.Services;
 
 import com.yorastd.projectmanagement.Repositories.UserRepository;
-import com.yorastd.projectmanagement.Models.ChangePasswordRequest;
-import com.yorastd.projectmanagement.Models.User;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.ChangePasswordRequest;
+import com.yorastd.projectmanagement.Models.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

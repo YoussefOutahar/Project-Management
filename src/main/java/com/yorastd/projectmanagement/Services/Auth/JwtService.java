@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Services;
+package com.yorastd.projectmanagement.Services.Auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

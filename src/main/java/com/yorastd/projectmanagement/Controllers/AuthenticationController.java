@@ -1,9 +1,9 @@
 package com.yorastd.projectmanagement.Controllers;
 
-import com.yorastd.projectmanagement.Models.AuthenticationRequest;
-import com.yorastd.projectmanagement.Models.AuthenticationResponse;
-import com.yorastd.projectmanagement.Services.AuthenticationService;
-import com.yorastd.projectmanagement.Models.RegisterRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationResponse;
+import com.yorastd.projectmanagement.Services.Auth.AuthenticationService;
+import com.yorastd.projectmanagement.Models.AuthModels.Requests.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

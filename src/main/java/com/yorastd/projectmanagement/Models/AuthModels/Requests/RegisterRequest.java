@@ -1,5 +1,6 @@
-package com.yorastd.projectmanagement.Models;
+package com.yorastd.projectmanagement.Models.AuthModels.Requests;
 
+import com.yorastd.projectmanagement.Models.User.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

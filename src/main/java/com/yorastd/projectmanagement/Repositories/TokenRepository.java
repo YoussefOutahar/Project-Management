@@ -1,6 +1,6 @@
 package com.yorastd.projectmanagement.Repositories;
 
-import com.yorastd.projectmanagement.Models.Token;
+import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

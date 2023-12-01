@@ -1,6 +1,5 @@
 package com.yorastd.projectmanagement.Security.config;
 
-import com.yorastd.projectmanagement.Models.Role;
 import com.yorastd.projectmanagement.Security.filters.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import static com.yorastd.projectmanagement.Models.Permission.*;
-import static com.yorastd.projectmanagement.Models.Role.ADMIN;
-import static com.yorastd.projectmanagement.Models.Role.MANAGER;
+import static com.yorastd.projectmanagement.Models.AuthModels.Permission.*;
+import static com.yorastd.projectmanagement.Models.User.Role.*;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -53,7 +51,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers(antMatcher("/api/v1/management/**")).hasAnyRole(ADMIN.name(), MANAGER.name())
+                                .requestMatchers(antMatcher("/api/v1/**")).hasAnyRole(ADMIN.name(), MANAGER.name(),USER.name())
                                 // add more request matchers here
                                 .anyRequest()
                                 .authenticated()

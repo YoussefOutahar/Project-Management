@@ -1,5 +1,6 @@
-package com.yorastd.projectmanagement.Models;
+package com.yorastd.projectmanagement.Models.AuthModels.Token;
 
+import com.yorastd.projectmanagement.Models.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

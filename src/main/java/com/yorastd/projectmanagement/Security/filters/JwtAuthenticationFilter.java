@@ -1,7 +1,7 @@
 package com.yorastd.projectmanagement.Security.filters;
 
 import com.yorastd.projectmanagement.Repositories.TokenRepository;
-import com.yorastd.projectmanagement.Services.JwtService;
+import com.yorastd.projectmanagement.Services.Auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

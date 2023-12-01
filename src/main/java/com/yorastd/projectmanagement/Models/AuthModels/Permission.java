@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Models;
+package com.yorastd.projectmanagement.Models.AuthModels;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

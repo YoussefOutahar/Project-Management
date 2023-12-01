@@ -1,5 +1,6 @@
-package com.yorastd.projectmanagement.Models;
+package com.yorastd.projectmanagement.Models.User;
 
+import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_user")
+@Table(name = "user")
 public class User implements UserDetails {
 
   @Id
