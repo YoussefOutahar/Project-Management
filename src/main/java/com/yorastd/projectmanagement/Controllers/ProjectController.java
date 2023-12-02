@@ -18,7 +18,7 @@ public class ProjectController {
     private final ProjectService projectService;
     private final TrelloService trelloService;
 
-    @PutMapping("getAll")
+    @PutMapping("get/all")
     public ResponseEntity<List<Project>> getAll() {
         try {
             List<Project> projects = projectService.getAll();

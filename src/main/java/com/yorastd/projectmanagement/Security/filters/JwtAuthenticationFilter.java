@@ -49,14 +49,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
+    System.out.println("Auth header: " + authHeader);
     jwt = authHeader.substring(7);
+    System.out.println("JWT: " + jwt);
     userEmail = jwtService.extractUsername(jwt);
+    System.out.println("User email: " + userEmail);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
       var isTokenValid = tokenRepository.findByToken(jwt)
           .map(t -> !t.isExpired() && !t.isRevoked())
           .orElse(false);
       if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+        System.out.println("Token is valid");
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails,
             null,

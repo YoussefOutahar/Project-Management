@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import java.util.List;
+
 import static com.yorastd.projectmanagement.Models.AuthModels.Permission.*;
 import static com.yorastd.projectmanagement.Models.User.Role.*;
 import static org.springframework.http.HttpMethod.*;
@@ -47,6 +49,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors
+                        .configurationSource(request -> {
+                            var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                            corsConfiguration.setAllowedOrigins(List.of("*"));
+                            corsConfiguration.setAllowedMethods(List.of(GET.name(), POST.name(), PUT.name(), DELETE.name(), OPTIONS.name()));
+                            corsConfiguration.setAllowedHeaders(List.of("*"));
+                            return corsConfiguration;
+                        })
+                )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)

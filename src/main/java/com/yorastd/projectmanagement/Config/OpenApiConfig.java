@@ -1,4 +1,4 @@
-package com.yorastd.projectmanagement.Security.config;
+package com.yorastd.projectmanagement.Config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
