@@ -11,9 +11,9 @@ import java.util.Date;
 public class List {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Board board;
 
     @Value("Untitled List")

@@ -12,12 +12,18 @@ import java.util.Date;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Project project;
 
     private String title = "Untitled Board";
+
+    private String description = "No description";
+
+    private boolean isDone = false;
+
+    private boolean isArchived = false;
 
     private Date createdAt = new Date();
 }

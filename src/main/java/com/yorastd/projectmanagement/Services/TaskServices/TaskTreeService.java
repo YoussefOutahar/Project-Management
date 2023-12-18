@@ -20,6 +20,9 @@ public class TaskTreeService {
     public static final int DAY_IN_MILLISEC = 86400000;
     private final TaskTreeRepo taskTreeRepo;
 
+    private final TaskNodeService taskNodeService;
+    private final TaskService taskService;
+
     private final TaskRepo taskRepo;
     private final TaskNodeRepo taskNodeRepo;
 
@@ -32,7 +35,7 @@ public class TaskTreeService {
         List<TaskNode> taskNodes = new ArrayList<>();
         for (Task task : tasks) {
             TaskNode taskNode = new TaskNode();
-            taskNode.setId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+            taskNode.setId(UUID.randomUUID().hashCode());
             taskNode.setTask(task);
             taskNode.setChildren(new ArrayList<>());
             taskNode.setPredecessors(new ArrayList<>());
@@ -44,26 +47,29 @@ public class TaskTreeService {
             }
         }
 
+        System.out.println(taskNodes);
+
         // Link nodes based on predecessor relationships
         for (TaskNode taskNode : taskNodes) {
             Task task = taskNode.getTask();
-            for (Task predecessorTask : task.getPredecessors()) {
+            for (Task predecessorTask : taskService.getTasksPredecessors(task)) {
                 for (TaskNode predecessorNode : taskNodes) {
                     if (predecessorNode.getTask().getId().equals(predecessorTask.getId())) {
-                        taskNode.getPredecessors().add(predecessorNode);
-                        predecessorNode.getChildren().add(taskNode);
+                        taskNode.getPredecessors().add(predecessorNode.getId());
+                        predecessorNode.getChildren().add(taskNode.getId());
+
                     }
                 }
             }
         }
 
-        for (TaskNode taskNode : taskNodes) {
-            taskNode.setTaskTree(taskTree);
-            taskNodeRepo.save(taskNode);
-        }
-
-        // Save the task tree
-        taskTreeRepo.save(taskTree);
+//        for (TaskNode taskNode : taskNodes) {
+//            taskNode.setTaskTree(taskTree);
+//            taskNodeRepo.save(taskNode);
+//        }
+//
+//        // Save the task tree
+//        taskTreeRepo.save(taskTree);
 
         return taskTree;
     }
@@ -90,7 +96,8 @@ public class TaskTreeService {
     @Transactional
     public TaskNode calculateTaskNodeDatesSoon(TaskNode taskNode, Date startDate) {
         // Task Node has predecessors
-        ArrayList<TaskNode> predecessors = new ArrayList<>(taskNode.getPredecessors());
+        ArrayList<TaskNode> predecessors = taskNodeService.getTaskNodePredecessors(taskNode);
+//                new ArrayList<>(taskNode.getPredecessors());
 
         if(!predecessors.isEmpty()){
             // Find the most recent end date of the predecessors
@@ -112,7 +119,8 @@ public class TaskTreeService {
                             mostRecentDate.getTime() + taskNode.getTask().getTimeRequired().getTime()
                     )
             );
-            ArrayList<TaskNode> children = new ArrayList<>(taskNode.getChildren());
+            ArrayList<TaskNode> children = taskNodeService.getTaskNodeChildren(taskNode);
+//                    new ArrayList<>(taskNode.getChildren());
 
             // Calculate the dates of the children
             for (TaskNode child : children) {
@@ -126,7 +134,8 @@ public class TaskTreeService {
                             startDate.getTime() + taskNode.getTask().getTimeRequired().getTime()
                     )
             );
-            ArrayList<TaskNode> children = new ArrayList<>(taskNode.getChildren());
+            ArrayList<TaskNode> children = taskNodeService.getTaskNodeChildren(taskNode);
+//                    new ArrayList<>(taskNode.getChildren());
 
             // Calculate the dates of the children
             for (TaskNode child : children) {
@@ -152,31 +161,31 @@ public class TaskTreeService {
     public List<Task> createSampleTasks() {
         // Create some sample tasks
         Task task1 = new Task();
-        task1.setId(1L);
+        task1.setId(1);
         task1.setName("Task 1");
         task1.setTimeRequired(new Date(1000 * 60 * 60 * 24 * 2 ));
         task1.setPredecessors(new ArrayList<>());
 
         Task task2 = new Task();
-        task2.setId(2L);
+        task2.setId(2);
         task2.setName("Task 2");
         task2.setPredecessors(new ArrayList<>());
         task2.setTimeRequired(new Date(1000 * 60 * 60 * 24 * 2 ));
-        task2.getPredecessors().add(task1);
+        task2.getPredecessors().add(task1.getId());
 
         Task task3 = new Task();
-        task3.setId(3L);
+        task3.setId(3);
         task3.setName("Task 3");
         task3.setTimeRequired(new Date(1000 * 60 * 60 * 24 * 2 ));
         task3.setPredecessors(new ArrayList<>());
-        task3.getPredecessors().add(task1);
+        task3.getPredecessors().add(task1.getId());
 
         List<Task> tasks = new ArrayList<>();
         tasks.add(task1);
         tasks.add(task2);
         tasks.add(task3);
 
-        taskRepo.saveAll(tasks);
+//        taskRepo.saveAll(tasks);
 
         return tasks;
     }

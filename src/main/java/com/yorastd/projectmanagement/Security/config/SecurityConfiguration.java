@@ -17,9 +17,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.List;
 
-import static com.yorastd.projectmanagement.Models.AuthModels.Permission.*;
 import static com.yorastd.projectmanagement.Models.User.Role.*;
-import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -49,11 +47,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors
-                        .configurationSource(request -> {
+                .cors(
+                        cors -> cors.configurationSource(request -> {
                             var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
                             corsConfiguration.setAllowedOrigins(List.of("*"));
-                            corsConfiguration.setAllowedMethods(List.of(GET.name(), POST.name(), PUT.name(), DELETE.name(), OPTIONS.name()));
+                            corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                             corsConfiguration.setAllowedHeaders(List.of("*"));
                             return corsConfiguration;
                         })
@@ -62,7 +60,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers(antMatcher("/api/v1/**")).hasAnyRole(ADMIN.name(), MANAGER.name(),USER.name())
+                                .requestMatchers(antMatcher("/api/v1/**")).hasAnyRole(ADMIN.name(), MANAGER.name(), USER.name())
                                 // add more request matchers here
                                 .anyRequest()
                                 .authenticated()

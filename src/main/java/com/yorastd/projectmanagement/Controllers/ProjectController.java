@@ -18,7 +18,7 @@ public class ProjectController {
     private final ProjectService projectService;
     private final TrelloService trelloService;
 
-    @PutMapping("get/all")
+    @GetMapping("get/all")
     public ResponseEntity<List<Project>> getAll() {
         try {
             List<Project> projects = projectService.getAll();
@@ -29,12 +29,11 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("create")
-    public ResponseEntity<Project> create() {
-        System.out.println("Creating project");
+    @PostMapping("create")
+    public ResponseEntity<Project> create(@RequestBody Project project) {
         try {
-            Project project = projectService.create();
-            System.out.println("Project created");
+            projectService.create(project);
+            System.out.println("Project Instance Saved");
             return ResponseEntity.ok(project);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,8 +41,21 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("delete/{id}")
-    public ResponseEntity delete(@PathVariable long id) {
+    @GetMapping("get/user/{id}")
+    public ResponseEntity<List<Project>> getAllByUserId(@PathVariable Integer id) {
+        try {
+            List<Project> projects = projectService.getAllByUserId(id);
+            return ResponseEntity.ok(projects);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity delete(@PathVariable Integer id) {
         try {
             projectService.delete(id);
             return ResponseEntity.ok().build();
@@ -54,7 +66,7 @@ public class ProjectController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<Project> update(@PathVariable long id, @RequestParam Project updatedProject) {
+    public ResponseEntity<Project> update(@PathVariable Integer id, @RequestParam Project updatedProject) {
         try {
             Project project = projectService.update(
                     id,
@@ -67,8 +79,8 @@ public class ProjectController {
         }
     }
 
-    @PutMapping("getBoards/{id}")
-    public ResponseEntity<List<Board>> getAllProjectBoards(@PathVariable long id) {
+    @GetMapping("get/boards/{id}")
+    public ResponseEntity<List<Board>> getAllProjectBoards(@PathVariable Integer id) {
         try {
             List<Board> boards = projectService.getAllProjectBoard(id);
             return ResponseEntity.ok(boards);
@@ -79,7 +91,7 @@ public class ProjectController {
     }
 
     @PutMapping("{projectId}/addBoard/{boardId}")
-    public ResponseEntity<Project> addBoardToProject(@PathVariable long projectId, @PathVariable long boardId) {
+    public ResponseEntity<Project> addBoardToProject(@PathVariable Integer projectId, @PathVariable Integer boardId) {
         try {
             Project project = projectService.addBoardToProject(projectId, boardId);
             return ResponseEntity.ok(project);
@@ -88,6 +100,4 @@ public class ProjectController {
             return ResponseEntity.badRequest().build();
         }
     }
-
-
 }

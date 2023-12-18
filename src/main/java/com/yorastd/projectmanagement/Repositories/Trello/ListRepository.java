@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ListRepository extends JpaRepository<List, Long> {
+public interface ListRepository extends JpaRepository<List, Integer> {
 
     @Query(
             value = """
@@ -18,5 +18,5 @@ public interface ListRepository extends JpaRepository<List, Long> {
                     where l.id = :id
                     """
     )
-    Optional<java.util.List<Card>> getListCardsById(Long id);
+    Optional<java.util.List<Card>> getListCardsById(Integer id);
 }

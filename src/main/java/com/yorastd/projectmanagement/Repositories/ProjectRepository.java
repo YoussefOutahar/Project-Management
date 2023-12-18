@@ -4,13 +4,14 @@ import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Trello.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public interface ProjectRepository extends JpaRepository<Project, Long> {
+@Repository
+public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     @Query(
             value = """
@@ -19,5 +20,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
                     where p.id = :id
                     """
     )
-    Optional<List<Board>> getProjectBoardsById(Long id);
+    Optional<List<Board>> getProjectBoardsById(Integer id);
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query(
             value = """
@@ -18,5 +18,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
                     where b.id = :id
                     """
     )
-    Optional<java.util.List<List>> getBoardListsById(Long id);
+    Optional<java.util.List<List>> getBoardListsById(Integer id);
 }

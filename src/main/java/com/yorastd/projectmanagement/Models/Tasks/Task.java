@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel.TaskNode;
+import com.yorastd.projectmanagement.Models.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity
@@ -14,11 +15,11 @@ public class Task implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @JsonIgnore
-    @OneToMany
-    private List<Task> predecessors;
+
+    @ElementCollection
+    private List<Integer> predecessors;
 
     @JsonIgnore
     @OneToOne
@@ -43,6 +44,9 @@ public class Task implements Serializable {
     private Date endDateSoon;
     
     private Date endDateLate;
+
+    @ManyToMany
+    private List<User> assignedTo;
 
     @Override
     public String toString() {

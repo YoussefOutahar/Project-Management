@@ -12,12 +12,12 @@ import java.util.Date;
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Board board;
 
-    @OneToOne
+    @ManyToOne
     private List list;
 
     private String title = "Untitled Card";
@@ -25,9 +25,6 @@ public class Card {
     private String description = "No description";
 
     private int position;
-
-    @OneToOne
-    private User assignedTo;
 
     private boolean isDone = false;
 

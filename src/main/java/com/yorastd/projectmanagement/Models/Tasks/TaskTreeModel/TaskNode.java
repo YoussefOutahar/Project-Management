@@ -11,7 +11,7 @@ import java.util.List;
 public class TaskNode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Integer id;
 
     @OneToOne(mappedBy = "taskNode",cascade = CascadeType.ALL)
     private Task task;
@@ -20,12 +20,17 @@ public class TaskNode {
     @JsonIgnore
     private TaskTree taskTree;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<TaskNode> children;
+    @ElementCollection
+    private List<Integer> children;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<TaskNode> predecessors;
+    @ElementCollection
+    private List<Integer> predecessors;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private List<TaskNode> children;
+//
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<TaskNode> predecessors;
 
     @Override
     public String toString() {

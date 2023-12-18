@@ -11,7 +11,7 @@ import java.util.List;
 public class TaskTree {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Integer id;
 
     @OneToMany(mappedBy = "taskTree", cascade = CascadeType.ALL)
     private List<TaskNode> roots;
