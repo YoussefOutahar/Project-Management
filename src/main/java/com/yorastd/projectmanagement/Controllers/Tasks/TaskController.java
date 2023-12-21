@@ -1,6 +1,7 @@
-package com.yorastd.projectmanagement.Controllers;
+package com.yorastd.projectmanagement.Controllers.Tasks;
 
 import com.yorastd.projectmanagement.Models.Tasks.Task;
+import com.yorastd.projectmanagement.Models.Tasks.TaskComment;
 import com.yorastd.projectmanagement.Services.TaskServices.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class TaskController {
     @PostMapping("/create")
     public ResponseEntity<Task> createTask(@PathVariable Integer projectId, @RequestBody Task task) {
         try {
-            taskService.createTask(task);
+            taskService.createTask(projectId,task);
             return ResponseEntity.ok(task);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +37,7 @@ public class TaskController {
     }
 
     @GetMapping("/get/{taskId}")
-    public ResponseEntity<Task> getTask(@PathVariable Integer projectId, @PathVariable Integer taskId) {
+    public ResponseEntity<Task> getTask(@PathVariable Long taskId) {
         try {
             Task task = taskService.getTask(taskId);
             return ResponseEntity.ok(task);
@@ -47,7 +48,7 @@ public class TaskController {
     }
 
     @PutMapping("/update/{taskId}")
-    public ResponseEntity<Task> updateTask(@PathVariable Integer projectId, @PathVariable Integer taskId, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@PathVariable Integer taskId, @RequestBody Task task) {
         try {
             taskService.updateTask(task);
             return ResponseEntity.ok(task);
@@ -58,10 +59,33 @@ public class TaskController {
     }
 
     @DeleteMapping("/delete/{taskId}")
-    public ResponseEntity<Task> deleteTask(@PathVariable Integer projectId, @PathVariable Integer taskId) {
+    public ResponseEntity<Task> deleteTask(@PathVariable Long taskId) {
         try {
             taskService.deleteTask(taskId);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/comment/create/{taskId}")
+    public ResponseEntity<TaskComment> createTaskComment(@PathVariable Long taskId, @RequestBody TaskComment taskComment) {
+        try {
+            System.out.println(taskComment);
+            taskService.createTaskComment(taskId,taskComment);
+            return ResponseEntity.ok(taskComment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/comment/all/{taskId}")
+    public ResponseEntity<List<TaskComment>> getTaskComments(@PathVariable Long taskId) {
+        try {
+            List<TaskComment> taskComments = taskService.getTaskComments(taskId);
+            return ResponseEntity.ok(taskComments);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

@@ -2,6 +2,7 @@ package com.yorastd.projectmanagement.Models.Budget;
 
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
+import com.yorastd.projectmanagement.Models.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,9 @@ public class HumanResource {
     private String description = "No description";
 
     private Double costPerHour = 0.0;
+
+    @OneToOne
+    private User user;
 
     @ManyToOne
     private Project project;

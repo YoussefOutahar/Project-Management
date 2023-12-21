@@ -1,22 +1,30 @@
 package com.yorastd.projectmanagement.Services.TaskServices;
 
+import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
+import com.yorastd.projectmanagement.Models.Tasks.TaskComment;
+import com.yorastd.projectmanagement.Repositories.ProjectRepository;
+import com.yorastd.projectmanagement.Repositories.Tasks.TaskCommentRepository;
 import com.yorastd.projectmanagement.Repositories.Tasks.TaskRepo;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TaskService {
+
+
+    private final ProjectRepository projectRepository;
     private final TaskRepo taskRepo;
+    private final TaskCommentRepository taskCommentRepository;
 
-    public TaskService(TaskRepo taskRepo) {
-        this.taskRepo = taskRepo;
-    }
-
-    public void createTask(Task task) {
+    public void createTask(Integer projectId,Task task) {
+        Project project = projectRepository.findById(projectId).orElseThrow(() -> new IllegalStateException("Project with id " + projectId + " does not exist"));
+        task.setProject(project);
         taskRepo.save(task);
     }
 
@@ -24,7 +32,7 @@ public class TaskService {
         return taskRepo.findAll();
     }
 
-    public Task getTask(Integer taskId) {
+    public Task getTask(Long taskId) {
         return taskRepo.findById(taskId).orElse(null);
     }
 
@@ -32,15 +40,17 @@ public class TaskService {
         taskRepo.save(task);
     }
 
-    public void deleteTask(Integer taskId) {
+    public void deleteTask(Long taskId) {
         taskRepo.deleteById(taskId);
     }
 
-    public ArrayList<Task> getTasksPredecessors(Task task) {
-        ArrayList<Task> predecessors = new ArrayList<Task>();
-        for (Integer predecessorId : task.getPredecessors()) {
-            predecessors.add(taskRepo.findById(predecessorId).orElse(null));
-        }
-        return predecessors;
+    public void createTaskComment(Long taskId, TaskComment taskComment) {
+        Task task = taskRepo.findById(taskId).orElseThrow(() -> new IllegalStateException("Task with id " + taskId + " does not exist"));
+        taskComment.setTask(task);
+        taskCommentRepository.save(taskComment);
+    }
+
+    public List<TaskComment> getTaskComments(Long taskId) {
+        return taskRepo.getTaskCommentsById(taskId).orElseThrow(() -> new IllegalStateException("Task with id " + taskId + " does not exist"));
     }
 }

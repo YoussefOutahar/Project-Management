@@ -1,6 +1,7 @@
 package com.yorastd.projectmanagement.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yorastd.projectmanagement.Models.Tasks.Link;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
 import com.yorastd.projectmanagement.Models.Trello.Board;
 import com.yorastd.projectmanagement.Models.User.User;
@@ -31,16 +32,4 @@ public class Project {
     private boolean isCompleted = false;
 
     private Date createdAt = new Date();
-
-    @OneToMany
-    @JsonIgnore
-    private List<Board> boards;
-
-    @ManyToMany
-    @JsonIgnore
-    private List<User> collaborators;
-
-    @OneToMany
-    @JsonIgnore
-    private List<Task> tasks;
 }

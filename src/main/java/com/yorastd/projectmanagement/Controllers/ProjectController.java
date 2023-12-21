@@ -1,8 +1,11 @@
 package com.yorastd.projectmanagement.Controllers;
 
+import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Trello.Board;
+import com.yorastd.projectmanagement.Services.BudgetService;
 import com.yorastd.projectmanagement.Services.ProjectService;
+import com.yorastd.projectmanagement.Services.TaskServices.TaskService;
 import com.yorastd.projectmanagement.Services.TrelloService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,8 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final BudgetService budgetService;
+    private final TaskService taskService;
     private final TrelloService trelloService;
 
     @GetMapping("get/all")
@@ -41,30 +46,6 @@ public class ProjectController {
         }
     }
 
-    @GetMapping("get/user/{id}")
-    public ResponseEntity<List<Project>> getAllByUserId(@PathVariable Integer id) {
-        try {
-            List<Project> projects = projectService.getAllByUserId(id);
-            return ResponseEntity.ok(projects);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-
-
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity delete(@PathVariable Integer id) {
-        try {
-            projectService.delete(id);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
     @PutMapping("update/{id}")
     public ResponseEntity<Project> update(@PathVariable Integer id, @RequestParam Project updatedProject) {
         try {
@@ -79,22 +60,22 @@ public class ProjectController {
         }
     }
 
-    @GetMapping("get/boards/{id}")
-    public ResponseEntity<List<Board>> getAllProjectBoards(@PathVariable Integer id) {
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity delete(@PathVariable Integer id) {
         try {
-            List<Board> boards = projectService.getAllProjectBoard(id);
-            return ResponseEntity.ok(boards);
+            projectService.delete(id);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @PutMapping("{projectId}/addBoard/{boardId}")
-    public ResponseEntity<Project> addBoardToProject(@PathVariable Integer projectId, @PathVariable Integer boardId) {
+    @GetMapping("get/{id}/budget-ratio")
+    public ResponseEntity<Double> getBudgetRatio(@PathVariable Integer id) {
         try {
-            Project project = projectService.addBoardToProject(projectId, boardId);
-            return ResponseEntity.ok(project);
+            Double ratio = 0.5;
+            return ResponseEntity.ok(ratio);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

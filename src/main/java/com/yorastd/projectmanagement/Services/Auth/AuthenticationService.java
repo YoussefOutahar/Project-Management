@@ -116,4 +116,10 @@ public class AuthenticationService {
       }
     }
   }
+
+  public User me(String token) {
+    var userEmail = jwtService.extractUsername(token);
+    return repository.findByEmail(userEmail)
+            .orElseThrow();
+  }
 }

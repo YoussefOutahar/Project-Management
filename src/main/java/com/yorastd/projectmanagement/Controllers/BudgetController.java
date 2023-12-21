@@ -14,8 +14,10 @@ public class BudgetController {
 
     private final BudgetService budgetService;
     @GetMapping("/human-resources/get/all")
-    public List<HumanResource> getAllHumanResources() {
-        return budgetService.getAllHumanResources();
+    public List<HumanResource> getAllHumanResources(
+            @PathVariable Integer projectId
+    ) {
+        return budgetService.getAllHumanResources(projectId);
     }
 
     @PostMapping("/human-resources/create")

@@ -1,5 +1,6 @@
 package com.yorastd.projectmanagement.Services;
 
+import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
 import com.yorastd.projectmanagement.Repositories.UserRepository;
 import com.yorastd.projectmanagement.Models.AuthModels.Requests.ChangePasswordRequest;
 import com.yorastd.projectmanagement.Models.User.User;
@@ -16,6 +17,13 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
+
+    public User getConnectedUser(String token) {
+        return repository.findByToken(token)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+
+    }
+
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();

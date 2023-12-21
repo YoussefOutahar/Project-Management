@@ -1,13 +1,12 @@
 package com.yorastd.projectmanagement.Controllers;
 
 import com.yorastd.projectmanagement.Models.AuthModels.Requests.ChangePasswordRequest;
+import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
+import com.yorastd.projectmanagement.Models.User.User;
 import com.yorastd.projectmanagement.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 

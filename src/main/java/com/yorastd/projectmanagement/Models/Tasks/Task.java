@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.yorastd.projectmanagement.Models.Tasks.TaskTreeModel.TaskNode;
+import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,53 +15,35 @@ public class Task implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
+    private String text;
 
-    @ElementCollection
-    private List<Integer> predecessors;
-
-    @JsonIgnore
-    @OneToOne
-    private TaskNode taskNode;
-
-    private String name;
+    private Integer parent;
 
     private String description;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status = TaskStatus.TODO;
 
     private int priority;
     
-    private Date timeRequired;
+    private int duration;
 
     private String createdAt;
 
-    private Date startDateSoon;
+    private String start_date;
 
-    private Date startDateLate;
+    private String end_date;
 
-    private Date endDateSoon;
-    
-    private Date endDateLate;
+    private double progress;
 
     @ManyToMany
+    @JsonIgnore
     private List<User> assignedTo;
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name=" + name +
-//                ", priority=" + priority +
-//                ", predecessors=" + predecessors +
-//                ", timeRequired=" + timeRequired +
-//                ", createdAt=" + createdAt +
-//                ", startDateSoon=" + startDateSoon +
-//                ", startDateLate=" + startDateLate +
-//                ", endDateSoon=" + endDateSoon +
-//                ", endDateLate=" + endDateLate +
-                '}';
-    }
+    @ManyToOne
+    @JsonIgnore
+    private Project project;
 
 }

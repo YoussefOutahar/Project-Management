@@ -2,6 +2,7 @@ package com.yorastd.projectmanagement.Models.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
+import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
 import jakarta.persistence.*;
@@ -37,16 +38,12 @@ public class User implements UserDetails {
   private String password;
 
   @ManyToMany
+  @JsonIgnore
   private List<Task> tasks;
 
   @JsonIgnore
-  @ManyToMany
-    @JoinTable(
-        name = "user_project",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    private List<Project> projects;
+  @ManyToOne
+  private Project projects;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -66,26 +63,31 @@ public class User implements UserDetails {
     return password;
   }
 
+  @JsonIgnore
   @Override
   public String getUsername() {
     return email;
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+  @JsonIgnore
   @Override
   public boolean isEnabled() {
     return true;

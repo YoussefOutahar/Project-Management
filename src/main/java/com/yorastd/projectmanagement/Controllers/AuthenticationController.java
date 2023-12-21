@@ -2,16 +2,14 @@ package com.yorastd.projectmanagement.Controllers;
 
 import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationRequest;
 import com.yorastd.projectmanagement.Models.AuthModels.Requests.AuthenticationResponse;
+import com.yorastd.projectmanagement.Models.User.User;
 import com.yorastd.projectmanagement.Services.Auth.AuthenticationService;
 import com.yorastd.projectmanagement.Models.AuthModels.Requests.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -43,5 +41,10 @@ public class AuthenticationController {
     service.refreshToken(request, response);
   }
 
-
+  @PostMapping("/me")
+  public ResponseEntity<User> me(
+      String access_token
+  ) {
+    return ResponseEntity.ok(service.me(access_token));
+  }
 }
