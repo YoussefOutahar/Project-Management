@@ -1,9 +1,6 @@
 package com.yorastd.projectmanagement.Controllers;
 
-import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
-import com.yorastd.projectmanagement.Models.Trello.Board;
-import com.yorastd.projectmanagement.Services.BudgetService;
 import com.yorastd.projectmanagement.Services.ProjectService;
 import com.yorastd.projectmanagement.Services.TaskServices.TaskService;
 import com.yorastd.projectmanagement.Services.TrelloService;
@@ -19,7 +16,6 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final BudgetService budgetService;
     private final TaskService taskService;
     private final TrelloService trelloService;
 

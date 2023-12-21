@@ -1,13 +1,9 @@
 package com.yorastd.projectmanagement.Services;
 
-import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
-import com.yorastd.projectmanagement.Models.Trello.Board;
 import com.yorastd.projectmanagement.Repositories.ProjectRepository;
 import com.yorastd.projectmanagement.Repositories.Tasks.TaskRepo;
-import com.yorastd.projectmanagement.Repositories.Trello.BoardRepository;
-import com.yorastd.projectmanagement.Repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,9 +52,6 @@ public class ProjectService {
                 () -> new RuntimeException("Project not found")
         );
         List<Task> tasks = projectRepository.getProjectTasksById(id).orElseThrow(
-                () -> new RuntimeException("Project not found")
-        );
-        List<HumanResource> humanResources = projectRepository.getHumanResourcesById(id).orElseThrow(
                 () -> new RuntimeException("Project not found")
         );
         Double budget = project.getBudget();

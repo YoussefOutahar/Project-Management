@@ -2,7 +2,9 @@ package com.yorastd.projectmanagement.Controllers.Tasks;
 
 import com.yorastd.projectmanagement.Models.Tasks.Task;
 import com.yorastd.projectmanagement.Models.Tasks.TaskComment;
+import com.yorastd.projectmanagement.Models.User.User;
 import com.yorastd.projectmanagement.Services.TaskServices.TaskService;
+import com.yorastd.projectmanagement.Services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final UserService userService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Task>> getAllTasks(@PathVariable Integer projectId) {
@@ -63,6 +66,45 @@ public class TaskController {
         try {
             taskService.deleteTask(taskId);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Task>> getTasksByUserId(@PathVariable Integer userId) {
+        try {
+            List<Task> tasks = taskService.getTasksByUserId(userId);
+            return ResponseEntity.ok(tasks);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/assign/{taskId}/{userId}")
+    public ResponseEntity<Task> assignTask(@PathVariable Long taskId, @PathVariable Integer userId) {
+        try {
+            Task task = taskService.getTask(taskId);
+            User user = userService.getUser(userId);
+            task.getAssignedTo().add(user);
+            taskService.updateTask(task);
+            return ResponseEntity.ok(task);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/unassign/{taskId}/{userId}")
+    public ResponseEntity<Task> unassignTask(@PathVariable Long taskId, @PathVariable Integer userId) {
+        try {
+            Task task = taskService.getTask(taskId);
+            User user = userService.getUser(userId);
+            task.getAssignedTo().remove(user);
+            taskService.updateTask(task);
+            return ResponseEntity.ok(task);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

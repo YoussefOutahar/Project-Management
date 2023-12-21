@@ -53,4 +53,18 @@ public class TaskService {
     public List<TaskComment> getTaskComments(Long taskId) {
         return taskRepo.getTaskCommentsById(taskId).orElseThrow(() -> new IllegalStateException("Task with id " + taskId + " does not exist"));
     }
+
+    public List<Task> getTasksByUserId(Integer userId) {
+        List<Task> tasks = taskRepo.findAll();
+        List<Task> userTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            for (int i = 0; i < task.getAssignedTo().size(); i++) {
+                if (task.getAssignedTo().get(i).getId() == userId) {
+                    userTasks.add(task);
+                    break;
+                }
+            }
+        }
+        return userTasks;
+    }
 }

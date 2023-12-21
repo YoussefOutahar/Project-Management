@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,10 +19,12 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
 
-    public User getConnectedUser(String token) {
-        return repository.findByToken(token)
-                .orElseThrow(() -> new IllegalStateException("User not found"));
+    public List<User> getAllUsers() {
+        return repository.findAll();
+    }
 
+    public User getUser(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new IllegalStateException("User with id " + id + " does not exist"));
     }
 
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {

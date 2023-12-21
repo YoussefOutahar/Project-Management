@@ -2,7 +2,6 @@ package com.yorastd.projectmanagement.Models.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yorastd.projectmanagement.Models.AuthModels.Token.Token;
-import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
 import jakarta.persistence.*;
@@ -33,6 +32,8 @@ public class User implements UserDetails {
   private String lastname;
 
   private String email;
+
+  private Double costPerHour = 0.0;
 
   @JsonIgnore
   private String password;

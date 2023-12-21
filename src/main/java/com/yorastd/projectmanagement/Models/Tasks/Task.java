@@ -21,7 +21,7 @@ public class Task implements Serializable {
 
     private Integer parent;
 
-    private String description;
+    private String description = "no description";
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status = TaskStatus.TODO;
@@ -30,7 +30,7 @@ public class Task implements Serializable {
     
     private int duration;
 
-    private String createdAt;
+    private Date createdAt = new Date();
 
     private String start_date;
 

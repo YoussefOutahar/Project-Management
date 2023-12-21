@@ -1,6 +1,5 @@
 package com.yorastd.projectmanagement.Repositories;
 
-import com.yorastd.projectmanagement.Models.Budget.HumanResource;
 import com.yorastd.projectmanagement.Models.Project;
 import com.yorastd.projectmanagement.Models.Tasks.Link;
 import com.yorastd.projectmanagement.Models.Tasks.Task;
@@ -9,7 +8,6 @@ import com.yorastd.projectmanagement.Models.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,16 +32,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
                     """
     )
     Optional<List<User>> getCollaboratorsById(Integer id);
-
-
-    @Query(
-            value = """
-                    select hr from Project p inner join HumanResource hr
-                    on p.id = hr.project.id
-                    where p.id = :id
-                    """
-    )
-    Optional<List<HumanResource>> getHumanResourcesById(Integer id);
 
 
     @Query(
